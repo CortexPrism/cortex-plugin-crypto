@@ -1,0 +1,79 @@
+{
+  "name": "cortex-plugin-crypto",
+  "version": "1.0.0",
+  "description": "Wallet management, smart contract interaction, token swaps, DeFi analytics",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-crypto",
+  "capabilities": [
+    "tools",
+    "network:fetch"
+  ],
+  "tools": [
+    {
+      "name": "crypto_get_balance",
+      "description": "Get wallet balance for an address",
+      "params": [
+        { "name": "address", "type": "string", "description": "Wallet address", "required": true },
+        { "name": "network", "type": "enum", "description": "Blockchain network", "default": "ethereum", "options": ["ethereum", "polygon", "arbitrum", "optimism", "base", "solana"] },
+        { "name": "token", "type": "string", "description": "Contract address for ERC20, or 'native' for ETH", "required": false }
+      ]
+    },
+    {
+      "name": "crypto_get_transactions",
+      "description": "Get transaction history for an address",
+      "params": [
+        { "name": "address", "type": "string", "description": "Wallet address", "required": true },
+        { "name": "network", "type": "string", "description": "Blockchain network", "required": false },
+        { "name": "limit", "type": "number", "description": "Number of transactions", "default": 20 }
+      ]
+    },
+    {
+      "name": "crypto_estimate_gas",
+      "description": "Estimate gas for a transaction",
+      "params": [
+        { "name": "network", "type": "string", "description": "Blockchain network", "required": false },
+        { "name": "tx_type", "type": "enum", "description": "Transaction type", "options": ["transfer", "swap", "contract_call"], "required": false }
+      ]
+    },
+    {
+      "name": "crypto_read_contract",
+      "description": "Read data from a smart contract",
+      "params": [
+        { "name": "contract_address", "type": "string", "description": "Smart contract address", "required": true },
+        { "name": "abi", "type": "string", "description": "JSON ABI of the contract", "required": true },
+        { "name": "method", "type": "string", "description": "Contract method to call", "required": true },
+        { "name": "params", "type": "string", "description": "JSON array of method parameters", "required": false },
+        { "name": "network", "type": "string", "description": "Blockchain network", "required": false }
+      ]
+    },
+    {
+      "name": "crypto_defi_analytics",
+      "description": "Get DeFi protocol analytics",
+      "params": [
+        { "name": "protocol", "type": "enum", "description": "DeFi protocol", "options": ["uniswap", "aave", "compound", "curve", "lido"], "required": true },
+        { "name": "metric", "type": "enum", "description": "Analytics metric", "options": ["tvl", "volume", "apy", "fees"], "required": true },
+        { "name": "network", "type": "string", "description": "Blockchain network", "required": false }
+      ]
+    }
+  ],
+  "ui": {
+    "section": "General",
+    "fields": [
+      { "key": "etherscanApiKey", "label": "Etherscan API Key", "type": "secret", "description": "Etherscan API key for blockchain data" },
+      { "key": "infuraProjectId", "label": "Infura Project ID", "type": "text", "description": "Infura Project ID for RPC access" },
+      { "key": "defaultNetwork", "label": "Default Network", "type": "select", "description": "Default blockchain network", "default": "ethereum", "options": [{ "label": "Ethereum", "value": "ethereum" }, { "label": "Polygon", "value": "polygon" }, { "label": "Arbitrum", "value": "arbitrum" }, { "label": "Optimism", "value": "optimism" }, { "label": "Base", "value": "base" }, { "label": "Solana", "value": "solana" }] }
+    ]
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "cortex": ">=1.0.0"
+  },
+  "aiDisclosure": {
+    "tools": ["Claude Code (Anthropic)"],
+    "humanReview": true
+  }
+}
