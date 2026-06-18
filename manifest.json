@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-crypto",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Wallet management, smart contract interaction, token swaps, DeFi analytics",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -17,13 +17,25 @@
       "name": "crypto_get_balance",
       "description": "Get wallet balance for an address",
       "params": [
-        { "name": "address", "type": "string", "description": "Wallet address", "required": true },
+        {
+          "name": "address",
+          "type": "string",
+          "description": "Wallet address",
+          "required": true
+        },
         {
           "name": "network",
-          "type": "enum",
+          "type": "string",
           "description": "Blockchain network",
           "default": "ethereum",
-          "options": ["ethereum", "polygon", "arbitrum", "optimism", "base", "solana"]
+          "enum": [
+            "ethereum",
+            "polygon",
+            "arbitrum",
+            "optimism",
+            "base",
+            "solana"
+          ]
         },
         {
           "name": "token",
@@ -37,7 +49,12 @@
       "name": "crypto_get_transactions",
       "description": "Get transaction history for an address",
       "params": [
-        { "name": "address", "type": "string", "description": "Wallet address", "required": true },
+        {
+          "name": "address",
+          "type": "string",
+          "description": "Wallet address",
+          "required": true
+        },
         {
           "name": "network",
           "type": "string",
@@ -64,10 +81,14 @@
         },
         {
           "name": "tx_type",
-          "type": "enum",
+          "type": "string",
           "description": "Transaction type",
-          "options": ["transfer", "swap", "contract_call"],
-          "required": false
+          "required": false,
+          "enum": [
+            "transfer",
+            "swap",
+            "contract_call"
+          ]
         }
       ]
     },
@@ -113,17 +134,28 @@
       "params": [
         {
           "name": "protocol",
-          "type": "enum",
+          "type": "string",
           "description": "DeFi protocol",
-          "options": ["uniswap", "aave", "compound", "curve", "lido"],
-          "required": true
+          "required": true,
+          "enum": [
+            "uniswap",
+            "aave",
+            "compound",
+            "curve",
+            "lido"
+          ]
         },
         {
           "name": "metric",
-          "type": "enum",
+          "type": "string",
           "description": "Analytics metric",
-          "options": ["tvl", "volume", "apy", "fees"],
-          "required": true
+          "required": true,
+          "enum": [
+            "tvl",
+            "volume",
+            "apy",
+            "fees"
+          ]
         },
         {
           "name": "network",
@@ -135,33 +167,55 @@
     }
   ],
   "ui": {
-    "section": "General",
-    "fields": [
+    "settings": [
       {
-        "key": "etherscanApiKey",
-        "label": "Etherscan API Key",
-        "type": "secret",
-        "description": "Etherscan API key for blockchain data"
-      },
-      {
-        "key": "infuraProjectId",
-        "label": "Infura Project ID",
-        "type": "text",
-        "description": "Infura Project ID for RPC access"
-      },
-      {
-        "key": "defaultNetwork",
-        "label": "Default Network",
-        "type": "select",
-        "description": "Default blockchain network",
-        "default": "ethereum",
-        "options": [
-          { "label": "Ethereum", "value": "ethereum" },
-          { "label": "Polygon", "value": "polygon" },
-          { "label": "Arbitrum", "value": "arbitrum" },
-          { "label": "Optimism", "value": "optimism" },
-          { "label": "Base", "value": "base" },
-          { "label": "Solana", "value": "solana" }
+        "section": "General",
+        "fields": [
+          {
+            "key": "etherscanApiKey",
+            "label": "Etherscan API Key",
+            "type": "secret",
+            "description": "Etherscan API key for blockchain data"
+          },
+          {
+            "key": "infuraProjectId",
+            "label": "Infura Project ID",
+            "type": "text",
+            "description": "Infura Project ID for RPC access"
+          },
+          {
+            "key": "defaultNetwork",
+            "label": "Default Network",
+            "type": "select",
+            "description": "Default blockchain network",
+            "default": "ethereum",
+            "enum": [
+              {
+                "label": "Ethereum",
+                "value": "ethereum"
+              },
+              {
+                "label": "Polygon",
+                "value": "polygon"
+              },
+              {
+                "label": "Arbitrum",
+                "value": "arbitrum"
+              },
+              {
+                "label": "Optimism",
+                "value": "optimism"
+              },
+              {
+                "label": "Base",
+                "value": "base"
+              },
+              {
+                "label": "Solana",
+                "value": "solana"
+              }
+            ]
+          }
         ]
       }
     ]
@@ -171,7 +225,10 @@
     "cortex": ">=1.0.0"
   },
   "aiDisclosure": {
-    "tools": ["Claude Code (Anthropic)"],
+    "tools": [
+      "Claude Code (Anthropic)"
+    ],
     "humanReview": true
-  }
+  },
+  "homepage": "https://github.com/CortexPrism/cortex-plugin-crypto"
 }
