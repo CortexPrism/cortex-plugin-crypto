@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-crypto",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Wallet management, smart contract interaction, token swaps, DeFi analytics",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -27,7 +27,7 @@
           "name": "network",
           "type": "string",
           "description": "Blockchain network",
-          "default": "ethereum",
+          "defaultValue": "ethereum",
           "enum": [
             "ethereum",
             "polygon",
@@ -65,7 +65,7 @@
           "name": "limit",
           "type": "number",
           "description": "Number of transactions",
-          "default": 20
+          "defaultValue": 20
         }
       ]
     },
@@ -188,8 +188,8 @@
             "label": "Default Network",
             "type": "select",
             "description": "Default blockchain network",
-            "default": "ethereum",
-            "enum": [
+            "defaultValue": "ethereum",
+            "options": [
               {
                 "label": "Ethereum",
                 "value": "ethereum"
@@ -222,7 +222,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "cortex": ">=1.0.0"
+    "cortex": ">=0.51.0"
   },
   "aiDisclosure": {
     "tools": [
